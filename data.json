@@ -2,7 +2,7 @@
     "id" : 1,
     "memo" : "json data입니다",
     "list" : [1,2,3,4,5],
-    "oject" : { 
+    "object" : { 
         "name" : "홍길동",
         "adress" : "부산"
     }

@@ -7,6 +7,11 @@
     <title>Document</title>
 </head>
 <body>
+    <h1>FetchAPI를 이용한 비동기 자바스크립트(Ajax)</h1>
+    <!-- 버튼을 눌렀을때, json의 object에 name과 adress 출력-->
+    <button id="fetch-btn">fetchAPI를 사용한 버튼</button>
+    <p id="fetch-print"></p>
+    
     <script>
         // fetch 는 promise 객체로 반환
         // 그 값을 then으로 받아서 쓸수있다
@@ -23,11 +28,26 @@
                 : 한 번 읽으면 (변수로 호출) 그값을 return 하고 내용을 비운다 
                 */
                 return presponse.text(); 
-            }).then( ptext => console.log(ptext))
+            }).then( ptext => console.log(ptext));
 
             // fetchAPI를 통해서 data.json 콘솔에 출력
-            
+            // json() 를 통해 객체로 만들어서 출력
+            fetch('./data.json', { method:"GET" })
+                .then( rep => rep.json() ) // rep객체의json()결과값을 return으로 보냄
+                .then( jsonText => console.log(jsonText));
 
+
+        const fetchBtn = document.querySelector("#fetch-btn");
+        fetchBtn.addEventListener("click", function(){
+            fetch("./data.json")
+                .then(response => response.json())
+                .then(jsonData => {
+                    const pTag = document.querySelector("#fetch-print");
+                    pTag.innerHTML=`${jsonData.object.name}<br>${jsonData.object.adress}`
+                });
+        });
+
+        
     </script>
 </body>
 </html>
