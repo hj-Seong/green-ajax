@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // fetch 는 promise 객체로 반환
+        // 그 값을 then으로 받아서 쓸수있다
+        console.log(fetch('./data.txt'))
+
+        // then을 통해서 사용할 때 안에 화살표함수를 사용해서 꺼내쓴다
+        fetch('./data.txt')
+            .then( presponse => {
+                console.log(presponse);
+                // text()의 결과값이 promise 객체이므로
+                // then으로 풀어서 사용하기 위해 return으로 전달
+                /* 
+                promise 객체의 특징
+                : 한 번 읽으면 (변수로 호출) 그값을 return 하고 내용을 비운다 
+                */
+                return presponse.text(); 
+            }).then( ptext => console.log(ptext))
+
+            // fetchAPI를 통해서 data.json 콘솔에 출력
+            
+
+    </script>
+</body>
+</html>
