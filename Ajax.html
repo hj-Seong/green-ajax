@@ -11,6 +11,10 @@
     <button id="btn">Ajax를 사용한 버튼</button>
     <p id="print"></p>
 
+    <button id="json-btn">json 가져오는 버튼</button>
+    <p id="json-print"></p>
+
+
     <h3>A태그를 이용한 값 가져오기</h3>
     <a href="./data.txt">text값</a>
 
@@ -55,12 +59,42 @@
                 if(this.readyState == 4 && this.status == 200) {
                     console.log(this.response);
                     // response을 p태그에 출력하세요
+                    console.log( typeof (this.response) )
+                    document.querySelector("#print").innerHTML = this.response;
                 }
             }
             btnReq.open("GET", "./data.txt");
             btnReq.send();
-
         })
+
+        // 비동기 자바스크립트 확인을 위해 
+        // 버튼을 눌렀을때 data.json의 값을 reponse, console에 출력
+        // json-btn 객체 가져와서 click 이벤트발생 > 함수 실행.
+        const jsonBtn = document.querySelector("#json-btn");
+        jsonBtn.addEventListener("click", function () {
+            const jsonReq = new XMLHttpRequest();
+            jsonReq.onreadystatechange = function() {
+                if(this.readyState == 4 && this.status == 200) {
+                    console.log(this.response);
+                    // response로 들어오는 모든 내용은 문자열(string)
+                    console.log( typeof (this.response) ) 
+
+                    // json형태의 문자열은 자바스크립트의 객체로 바꿀수있음
+                    const data = JSON.parse(this.response);
+                    console.log(typeof (data));
+                    // 자바스크립트 객체로 쉽게 접근 (자료형이 살아있음)
+                    console.log(data.list); 
+                    // p태그안에 배열 값 넣어주기
+                    const pTag = document.querySelector("#json-print");
+                    for (let i = 0; i<data.list.length; i++) {
+                        pTag.append(data.list[i])
+                    }
+                }
+            }
+            jsonReq.open("GET", "./data.json");
+            jsonReq.send();
+        })
+
 
 
 
