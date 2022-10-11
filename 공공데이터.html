@@ -39,8 +39,9 @@
             // 이미지와 메뉴ID 가져옴
             const response = await fetch('https://busan-food.openapi.redtable.global/api/food/img?serviceKey=tu0lQsmoRueko2EwNGyT8rUIniOJtqpaqkyPQGluECG61EJxj6qWtwW8ZjDEHB41');
             
+            let data = 0;
             if (response.ok) {
-                const data = await response.json();
+                data = await response.json();
                 console.log(data);
                 console.log(data.body[0].FOOD_IMG_URL)
                 console.log(data.body[0].MENU_ID)
@@ -52,24 +53,25 @@
             // 메뉴아이디와 메뉴 이름 (한국어)
             const MenuResponse = await fetch('https://busan-food.openapi.redtable.global/api/menu-dscrn/korean?serviceKey=tu0lQsmoRueko2EwNGyT8rUIniOJtqpaqkyPQGluECG61EJxj6qWtwW8ZjDEHB41')
             
+            let menuData = 0;
             if(MenuResponse.ok) {
-                const menuData = await MenuResponse.json();
+                menuData = await MenuResponse.json();
 
                 // 메뉴 확인
                 console.log(menuData.body[0].MENU_ID);
                 console.log(menuData.body[0].MENU_NM);
 
                 if(menuData.body[0].MENU_ID == data.body[0].MENU_ID) {
-                    document.querySelector("body").append(`<p>${menuData.body[0].MENU_NM}</p>`)
+                    document.querySelector("body").append(`${menuData.body[0].MENU_NM}`)
                 }
             }
 
 
             // 가져온 값을 문서객체(DOM)을 만들어서 추가하기
             // API로 가져올수 없으므로 임의의 값을 변수에 넣어서 작성
-            const menuImg = "이미지";
-            const menuName = "메뉴이름";
-            const menuRe = "식당이름";
+            const menuImg = data.body[0].FOOD_IMG_URL;
+            const menuName = menuData.body[0].MENU_NM;
+            const menuRe = menuData.body[0].RSTR_NM;
 
             // DOM 요소 만들어서 추가하기.
             const menuImgTag = document.createElement("img")
@@ -86,6 +88,11 @@
             menuBox.classList.add("list");
 
             document.querySelector("body").append(menuBox)
+
+
+            // ~ 4시50분까지
+            // 메뉴 10개 출력하기
+            // + 다음 버튼을 누르면 다른 메뉴 출력되게 하기
 
         }
         foodImageGet();
