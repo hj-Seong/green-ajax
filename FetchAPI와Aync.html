@@ -55,7 +55,7 @@
         // > promise 객체를 기다리는 키워드 - then 대신에 사용
         async function doFetch() {
             // fetchAPI를 통해서 공공데이터의 response 객체 받아옴
-            const response = await fetch('https://busan-food.openapi.redtable.global/api/menu-dscrn/korean?serviceKey=3cOsoxEnSZYVeTrfKrARQcYYonhykJwpZEurgWtYALHVUijbNn2a5tu7p5V7MIcw');
+            const response = await fetch('https://busan-food.openapi.redtable.global/api/menu-dscrn/korean?serviceKey=3cOsoxEnSZYVeTrfKrARQcYYonhykJwpZEurgWtYALHVUijbNn2a5tu7p5V7MIcw&pageNo=2');
             console.log(response);
 
             // response객체의ok 속성으로 연결여부 확인
